@@ -1,26 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import styles from './App.module.css';
 import Header from './Header/Header';
-
+import './App.module.css';
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			main: '#009688'
+			main: '#ffffff'
 		}
 	}
 });
 
 const App = () => {
 	return (
-		<div className={styles.App}>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<Header />
-				</Router>
-			</ThemeProvider>
-		</div>
+		<ThemeProvider theme={theme}>
+			<Router>
+				<Header />
+			</Router>
+		</ThemeProvider>
 	);
 };
 
