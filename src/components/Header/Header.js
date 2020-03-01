@@ -10,23 +10,35 @@ import Navigation from '../Navigation/Navigation';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+	appBar: {
+		backgroundColor: '#009688',
+		color: '#FFFFFF'
+	},
 	menuButton: {
 		[theme.breakpoints.up('md')]: {
 			display: 'none'
 		}
+	},
+	tabContainer: {
+		marginLeft: 'auto'
 	}
 }));
 
 const Header = (props) => {
 	const [ drawerOpen, setDrawerOpen ] = useState(false);
+	const [ value, setValue ] = useState(0);
 	const classes = useStyles(props);
 
 	const handleDrawerToggle = () => {
 		setDrawerOpen(!drawerOpen);
 	};
 
+	const handleTabChange = (event, value) => {
+		setValue(value);
+	};
+
 	return (
-		<AppBar color="primary" position="static">
+		<AppBar className={classes.appBar} color="default" position="fixed">
 			<Toolbar>
 				<IconButton
 					className={classes.menuButton}
@@ -39,11 +51,15 @@ const Header = (props) => {
 				</IconButton>
 				<Typography variant="h6">Quiz App</Typography>
 				<Navigation drawerOpen={drawerOpen} drawerClose={handleDrawerToggle} />
-				<div className="tabContainer">
-					<Tabs value={1} aria-label="simple tabs example">
-						<Tab label="Item One" />
-						<Tab label="Item Two" />
-						<Tab label="Item Three" />
+				<div className={classes.tabContainer}>
+					<Tabs
+						onChange={handleTabChange}
+						indicatorColor="primary"
+						value={value}
+						aria-label="simple tabs example"
+					>
+						<Tab label="Home" />
+						<Tab label="Generate Quiz" />
 					</Tabs>
 				</div>
 			</Toolbar>
