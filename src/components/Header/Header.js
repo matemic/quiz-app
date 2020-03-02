@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +21,11 @@ const useStyles = makeStyles((theme) => ({
 		}
 	},
 	tabContainer: {
-		marginLeft: 'auto'
+		display: 'none',
+		[theme.breakpoints.up('md')]: {
+			display: 'block',
+			marginLeft: 'auto'
+		}
 	}
 }));
 
@@ -58,8 +63,8 @@ const Header = (props) => {
 						value={value}
 						aria-label="simple tabs example"
 					>
-						<Tab label="Home" />
-						<Tab label="Generate Quiz" />
+						<Tab label="Home" component={Link} to="/" />
+						<Tab label="Generate Quiz" component={Link} to="/quiz-form" />
 					</Tabs>
 				</div>
 			</Toolbar>
