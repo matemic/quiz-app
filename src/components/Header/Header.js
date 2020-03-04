@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import MenuIcon from '@material-ui/icons/Menu';
 import Navigation from '../Navigation/Navigation';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
 	const [ drawerOpen, setDrawerOpen ] = useState(false);
 	const [ value, setValue ] = useState(0);
+	const location = useLocation();
 	const classes = useStyles(props);
 
 	const handleDrawerToggle = () => {
@@ -40,6 +42,11 @@ const Header = (props) => {
 
 	const handleTabChange = (event, value) => {
 		setValue(value);
+	};
+
+	const highlightSelectedTab = () => {
+		if (location.pathname === '/') return 0;
+		if (location.pathname === '/quiz-form') return 1;
 	};
 
 	return (
@@ -60,7 +67,7 @@ const Header = (props) => {
 					<Tabs
 						onChange={handleTabChange}
 						indicatorColor="primary"
-						value={value}
+						value={highlightSelectedTab()}
 						aria-label="simple tabs example"
 					>
 						<Tab label="Home" component={Link} to="/" />
