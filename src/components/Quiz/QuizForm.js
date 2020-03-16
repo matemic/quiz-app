@@ -100,41 +100,45 @@ const QuizForm = () => {
 
 	const formInputs = Object.keys(quizForm).map((input, id) => {
 		const key = quizForm[input];
-		return key.type === 'number' ? (
-			<TextField
-				inputProps={{
-					name: key.id,
-					min: '10',
-					max: '50'
-				}}
-				fullWidth
-				label={key.label}
-				required
-				id={key.id}
-				type={key.type}
-				onChange={(e) => handleChange(e, input)}
-			/>
-		) : (
-			<React.Fragment>
-				<InputLabel className={classes.selectLabel} htmlFor={key.id}>
-					{key.label}
-				</InputLabel>
-				<Select
-					fullWidth
-					native
-					label={key.label}
-					inputProps={{
-						name: key.id,
-						id: key.id
-					}}
-					onChange={(e) => handleChange(e, input)}
-				>
-					{key.options.map((option, id) => (
-						<option key={option + id} value={option.id ? option.id : option}>
-							{option.name}
-						</option>
-					))}
-				</Select>
+		return (
+			<React.Fragment key={input + id}>
+				{key.type === 'number' ? (
+					<TextField
+						inputProps={{
+							name: key.id,
+							min: '10',
+							max: '50'
+						}}
+						fullWidth
+						label={key.label}
+						required
+						id={key.id}
+						type={key.type}
+						onChange={(e) => handleChange(e, input)}
+					/>
+				) : (
+					<React.Fragment>
+						<InputLabel className={classes.selectLabel} htmlFor={key.id}>
+							{key.label}
+						</InputLabel>
+						<Select
+							fullWidth
+							native
+							label={key.label}
+							inputProps={{
+								name: key.id,
+								id: key.id
+							}}
+							onChange={(e) => handleChange(e, input)}
+						>
+							{key.options.map((option, id) => (
+								<option key={option + id} value={option.id ? option.id : option}>
+									{option.name}
+								</option>
+							))}
+						</Select>
+					</React.Fragment>
+				)}
 			</React.Fragment>
 		);
 	});
